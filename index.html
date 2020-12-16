@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <form method="post"> -->
+  <form action="write.php" method="post">
+    <textarea name="txt" id="textarea" cols="30" rows="10"></textarea>
+  </form>
+  <div><button id="send">送信</button></div>
+  <div id="output"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $("#send").on("click", function(e) {
+      var postdata = {
+        "text": $("#textarea").val()
+      };
+
+      $("#textarea").val("");
+
+      const url = "write.php";
+
+        $.ajax({
+          url: url,
+          type: "post",
+          dataType: "text",
+          data: postdata
+        }).done(function(response) {
+          var array = JSON.parse(response);
+          var arr = '';
+          for (var i = 0; i < array.length; i++) {
+            arr += '<div>' + array[i] + '</div>';
+          }
+          $('#output').html(arr);
+        }).fail(function(xhr, textStatus, errorThrown) {
+          alert('error');
+        });
+
+    })
+  </script>
+</body>
+
+</html>

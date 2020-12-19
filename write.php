@@ -26,7 +26,6 @@ if ($file) {
 flock($file, LOCK_UN);
 fclose($file);
 
-
 echo json_encode($str); //送り返す
 
 ?>
